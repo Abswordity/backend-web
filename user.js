@@ -1,12 +1,19 @@
-const mongoConnect = require('./db.js').mongoConnect
 
-	mongoConnect((db) => {
-		db.collection('users').find()
-		.then(response => {
-    		console.log(response)
-		})
-		.catch(err => {
-    		console.log(err)
-		})
-	})
+const getDb = require('./db.js').getDb
+
+const db = getDb()
+
+
+
+
+
+	
+		//  return db.collection('users').findOne()
+		// .then(response => {
+    	// 	console.log(response)
+		// })
+		// .catch(err => {
+    	// 	console.log(err)
+		// })
+
 
