@@ -39,17 +39,18 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
     const db = getDb()
-    const { username, gameWordArray, gameScore } = req.body;
+    const { username, longestWordsArray, highestScoringWordsArray, gameScore } = req.body;
     const user = db.collection('users').findOne({ email: username })
+
+    // console.log({ username, longestWordsArray, highestScoringWordsArray, gameScore });
 
     return user
         .then(result => {
-            console.log({ result })
-            const { abswordity: { scores, longestWords, highestScoringWords } } = result;
-
             const submittedUser = new User(result)
 
             submittedUser.updateTopFiveScores(gameScore)
+            submittedUser.updateTopFiveLongestWords(longestWordsArray)
+            submittedUser.updateTopFiveHighestScoringWords(highestScoringWordsArray)
             submittedUser.save();
         })
         .catch(err => {
